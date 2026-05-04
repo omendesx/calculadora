@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: red;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .calculadora{
+            width: 400px;
+            height: 500px;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        .teclado{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr 1fr;
+        }
+
+        .maior {
+            grid-row: span 2;
+        }
+
+        .btnSmall{
+            background-color: blue;
+            margin: 5px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="calculadora">
+        <div class="visor">
+            <input type="text" name="" id="visor">
+        </div>
+
+        <div class="teclado">
+            <div class="btnSmall">CE</div>
+            <div class="btnSmall">/</div>
+            <div class="btnSmall">*</div>
+            <div class="btnSmall">-</div>
+            <div class="btnSmall">7</div>
+            <div class="btnSmall">8</div>
+            <div class="btnSmall">9</div>
+            
+            <div class="maior">+</div>
+            <div class="btnSmall">4</div>
+            <div class="btnSmall">5</div>
+            <div class="btnSmall">6</div>
+            <div class="btnSmall">1</div>
+            <div class="btnSmall">2</div>
+            <div class="btnSmall">3</div>
+            <div class="maior">=</div>
+            <div class="btnSmall">0</div>
+            <div class="btnSmall">,</div>
+
+        </div>
+
+
+
+    </div>
+</body>
+
+</html>
