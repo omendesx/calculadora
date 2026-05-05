@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -20,66 +20,257 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
+            margin: auto;
             background-color: red;
             font-family: 'Oswald', sans-serif;
+            height: 100vh;
         }
 
-        .calculadora{
-            width: 400px;
-            height: 500px;
+        .calculadora {
+            width: auto;
+            height: auto;
             background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: auto;
+
+        }
+
+        .teclado {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-template-rows: repeat(5, 100px);
+        }
+
+        .btnBig {
+            grid-row: span 2;
+            background-color: violet;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+
+        }
+
+        .btnSmall {
+            background-color: blue;
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             border-radius: 10px;
         }
 
-        .teclado{
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            grid-template-rows: 1fr 1fr 1fr 1fr;
-        }
-
-        .maior {
-            grid-row: span 2;
-        }
-
-        .btnSmall{
-            background-color: blue;
+        .btnBigrow {
+            grid-column: span 2;
+            background-color: turquoise;
             margin: 5px;
-            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .visor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        .visor>input {
+            background-color: yellow;
+            width: 100%;
+            margin: 5px;
+            height: 80px;
+            border-radius: 10px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
         }
     </style>
 </head>
 
 <body>
-    <div class="calculadora">
-        <div class="visor">
-            <input type="text" name="" id="visor">
+    <div class="container">
+        <div class="calculadora">
+            <div class="visor">
+                <input type="text" name="" id="visor">
+                <button onclick="Sendnumber('C')">C</button>
+            </div>
+
+            <div class="teclado">
+                <div class="btnSmall" onclick="Sendnumber('CE')">CE</div>
+                <div class="btnSmall" onclick="Sendnumber('/')">/</div>
+                <div class="btnSmall" onclick="Sendnumber('x')">x</div>
+                <div class="btnSmall" onclick="Sendnumber('-')">-</div>
+                <div class="btnSmall" onclick="Sendnumber('7')">7</div>
+                <div class="btnSmall" onclick="Sendnumber('8')">8</div>
+                <div class="btnSmall" onclick="Sendnumber('9')">9</div>
+
+                <div class="btnBig" onclick="Sendnumber('+')">+</div>
+                <div class="btnSmall" onclick="Sendnumber('4')">4</div>
+                <div class="btnSmall" onclick="Sendnumber('5')">5</div>
+                <div class="btnSmall" onclick="Sendnumber('6')">6</div>
+                <div class="btnSmall" onclick="Sendnumber('1')">1</div>
+                <div class="btnSmall" onclick="Sendnumber('2')">2</div>
+                <div class="btnSmall" onclick="Sendnumber('3')">3</div>
+                <div class="btnBig" onclick="Sendnumber('=')">=</div>
+                <div class="btnBigrow" onclick="Sendnumber('0')">0</div>
+                <div class="btnSmall" onclick="Sendnumber(',')">,</div>
+            </div>
         </div>
-
-        <div class="teclado">
-            <div class="btnSmall">CE</div>
-            <div class="btnSmall">/</div>
-            <div class="btnSmall">*</div>
-            <div class="btnSmall">-</div>
-            <div class="btnSmall">7</div>
-            <div class="btnSmall">8</div>
-            <div class="btnSmall">9</div>
-            
-            <div class="maior">+</div>
-            <div class="btnSmall">4</div>
-            <div class="btnSmall">5</div>
-            <div class="btnSmall">6</div>
-            <div class="btnSmall">1</div>
-            <div class="btnSmall">2</div>
-            <div class="btnSmall">3</div>
-            <div class="btnBig">=</div>
-            <div class="btnSmall">0</div>
-            <div class="btnSmall">,</div>
-
-        </div>
-
-
-
     </div>
-</body>
 
+    <script>
+        let value1;
+        let value2;
+        let displayValue = '0';
+        let aguardandoSegundo;
+        let Operador = null;
+
+
+        const display = document.getElementById('visor');
+        function Sendnumber(x) {
+            console.log(x)
+        }
+
+        function UpdateDisplay() {
+            display.value = displayValue;
+        }
+
+        function AdicionarNumero(numero) {
+            if (aguardandoSegundo) {
+                displayValue = '';
+                aguardandoSegundo = false;
+            }
+
+            if (displayValue === '0' && numero === 0) return;
+
+            if (displayValue === '0' && numero !== '.') {
+                displayValue = numero.toString();
+            } else {
+                displayValue += numero.toString();
+            }
+
+            UpdateDisplay();
+        }
+
+        function AdicionarDecimal() {
+            if (aguardandoSegundo) {
+                displayValue = '0';
+                aguardandoSegundo = false;
+            }
+            if (!displayValue.includes('.')) {
+                displayValue += '.';
+            }
+            UpdateDisplay();
+        }
+
+        function Limpar() {
+            displayValue = '0';
+            value1 = null;
+            Operador = null;
+            aguardandoSegundo = false;
+
+            UpdateDisplay();
+        }
+
+        function apagar() {
+            if (aguardandoSegundo) return;
+            if (displayValue.length > 1) {
+                displayValue = displayValue.slice(0, -1);
+            } else {
+                displayValue = '0';
+            }
+            UpdateDisplay();
+        }
+
+        function Calcular() {
+            if (Operador === null || value1 === null) return;
+            const Segundo = parseFloat(displayValue);
+            let Resultado;
+
+            switch (Operador) {
+                case '+':
+                    Resultado = value1 + Segundo;
+                    break;
+                case '-':
+                    Resultado = value1 - Segundo;
+                    break;
+                case 'x':
+                    Resultado = value1 * Segundo;
+                    break;
+                case '/':
+                    if (Segundo === 0) {
+                        alert('Erro: Divisão por zero!');
+                        Limpar();
+                        return;
+                    }
+                    Resultado = value1 / Segundo;
+                    break;
+                default:
+                    return;
+            }
+
+            parseFloat(Resultado.toFixed(8));
+
+            displayValue = Resultado.toString();
+            value1 = Resultado;
+            Operador = null;
+            aguardandoSegundo = true;
+            UpdateDisplay();
+        }
+
+        function SetOperador(op) {
+            if (Operador !== null && !aguardandoSegundo) {
+                calcular();
+            }
+            value1 = parseFloat(displayValue);
+            Operador = op;
+            aguardandoSegundo = true;
+        }
+
+        function Sendnumber(x) {
+            console.log("Botão pressionado:", x);
+
+            // Verifica se é número (0-9)
+            if (x >= '0' && x <= '9') {
+                AdicionarNumero(x);
+            }
+            // Verifica se é vírgula/ponto decimal
+            else if (x === ',' || x === '.') {
+                AdicionarDecimal();
+            }
+            // Verifica se é operador
+            else if (x === '+' || x === '-' || x === 'x' || x === '/') {
+                SetOperador(x);
+            }
+            // Verifica se é igual
+            else if (x === '=') {
+                Calcular();
+            }
+            // Verifica se é limpar (C)
+            else if (x === 'C') {
+                Limpar();
+            }
+            // Verifica se é limpar entrada (CE - também usa LimparTudo)
+            else if (x === 'CE') {
+                Limpar();
+            }
+            // Verifica se é para apagar último caractere
+            else if (x === '⌫') {
+                Apagar();
+            }
+        }
+        // Inicializar display
+        UpdateDisplay();
+    </script>
+</body>
 </html>
