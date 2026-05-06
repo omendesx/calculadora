@@ -10,110 +10,109 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 </head>
 <style>
-     * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
 
-        }
+    }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin: auto;
-            background-color: rgb(190, 180, 167);
-            font-family: 'Oswald', sans-serif;
-            height: 100vh;
-        }
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin: auto;
+        background-color: rgb(190, 180, 167);
+        font-family: 'Oswald', sans-serif;
+        height: 100vh;
+    }
 
-        .calculadora {
-            width: auto;
-            height: auto;
-            background-color: grey;
-            border-radius: 10px;
-            padding: 20px;
-            margin: auto;
+    .calculadora {
+        width: auto;
+        height: auto;
+        background-color: grey;
+        border-radius: 10px;
+        padding: 20px;
+        margin: auto;
 
-        }
+    }
 
-        .teclado {
-            display: grid;
-            grid-template-columns: repeat(4, 100px);
-            grid-template-rows: repeat(5, 100px);
-        }
+    .teclado {
+        display: grid;
+        grid-template-columns: repeat(4, 100px);
+        grid-template-rows: repeat(5, 100px);
+    }
 
-        .btnBig {
-             box-shadow: 6px 6px 6px black;
-            font-size: 40px;
-            grid-row: span 2;
-            background-color: rgb(255, 255, 255);
-            margin: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
+    .btnBig {
+        box-shadow: 6px 6px 6px black;
+        font-size: 40px;
+        grid-row: span 2;
+        background-color: rgb(255, 255, 255);
+        margin: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
 
-        }
+    }
 
-        .btnSmall {
-            box-shadow: 6px 6px 6px black;
-            font-size: 40px;
-            background-color: rgb(255, 255, 255);
-            margin: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-        }
+    .btnSmall {
+        box-shadow: 6px 6px 6px black;
+        font-size: 40px;
+        background-color: rgb(255, 255, 255);
+        margin: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+    }
 
-        .btnBigrow {
-             box-shadow: 6px 6px 6px black;
-            font-size: 40px;
-            grid-column: span 2;
-            background-color: rgb(255, 255, 255);
-            margin: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 10px;
-        }
+    .btnBigrow {
+        box-shadow: 6px 6px 6px black;
+        font-size: 40px;
+        grid-column: span 2;
+        background-color: rgb(255, 255, 255);
+        margin: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+    }
 
-        .visor {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            
+    .visor {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-        }
 
-        .visor>input {
-            padding: 10px;
-            font-size: 30px;
-            background-color: white ;
-            width: 100%;
-            margin: 5px;
-            height: 80px;
-            border-radius: 10px;
-        }
+    }
 
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+    .visor>input {
+        padding: 10px;
+        font-size: 30px;
+        background-color: white;
+        width: 100%;
+        margin: 5px;
+        height: 80px;
+        border-radius: 10px;
+    }
 
-        }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-        h1{
-            font-size: 40px;
-        }
+    }
 
-        h2{
-            font-size: 20px;
-            margin-bottom: 25px;
-        }
+    h1 {
+        font-size: 40px;
+    }
 
+    h2 {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
 </style>
 
 <body>
@@ -150,7 +149,7 @@
     </div>
 
     <script>
-       let value1;
+        let value1;
         let value2;
         let displayValue = '0';
         let aguardandoSegundo;
