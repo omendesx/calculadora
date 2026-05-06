@@ -8,9 +8,113 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="js/script.js">
 </head>
+<style>
+     * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: auto;
+            background-color: rgb(190, 180, 167);
+            font-family: 'Oswald', sans-serif;
+            height: 100vh;
+        }
+
+        .calculadora {
+            width: auto;
+            height: auto;
+            background-color: grey;
+            border-radius: 10px;
+            padding: 20px;
+            margin: auto;
+
+        }
+
+        .teclado {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-template-rows: repeat(5, 100px);
+        }
+
+        .btnBig {
+             box-shadow: 6px 6px 6px black;
+            font-size: 40px;
+            grid-row: span 2;
+            background-color: rgb(255, 255, 255);
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+
+        }
+
+        .btnSmall {
+            box-shadow: 6px 6px 6px black;
+            font-size: 40px;
+            background-color: rgb(255, 255, 255);
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .btnBigrow {
+             box-shadow: 6px 6px 6px black;
+            font-size: 40px;
+            grid-column: span 2;
+            background-color: rgb(255, 255, 255);
+            margin: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+        }
+
+        .visor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+
+        }
+
+        .visor>input {
+            padding: 10px;
+            font-size: 30px;
+            background-color: white ;
+            width: 100%;
+            margin: 5px;
+            height: 80px;
+            border-radius: 10px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+
+        h1{
+            font-size: 40px;
+        }
+
+        h2{
+            font-size: 20px;
+            margin-bottom: 25px;
+        }
+
+</style>
 
 <body>
     <h1>Calculadora Flexbox</h1>
@@ -45,8 +149,149 @@
         </div>
     </div>
 
-    <script src="js/script.js">
-    
+    <script>
+       let value1;
+        let value2;
+        let displayValue = '0';
+        let aguardandoSegundo;
+        let Operador = null;
+
+
+        const display = document.getElementById('visor');
+        function Sendnumber(x) {
+            console.log(x)
+        }
+
+        function UpdateDisplay() {
+            display.value = displayValue;
+        }
+
+        function AdicionarNumero(numero) {
+            if (aguardandoSegundo) {
+                displayValue = '';
+                aguardandoSegundo = false;
+            }
+
+            if (displayValue === '0' && numero === 0) return;
+
+            if (displayValue === '0' && numero !== '.') {
+                displayValue = numero.toString();
+            } else {
+                displayValue += numero.toString();
+            }
+
+            UpdateDisplay();
+        }
+
+        function AdicionarDecimal() {
+            if (aguardandoSegundo) {
+                displayValue = '0';
+                aguardandoSegundo = false;
+            }
+            if (!displayValue.includes('.')) {
+                displayValue += '.';
+            }
+            UpdateDisplay();
+        }
+
+        function Limpar() {
+            displayValue = '0';
+            value1 = null;
+            Operador = null;
+            aguardandoSegundo = false;
+
+            UpdateDisplay();
+        }
+
+        function apagar() {
+            if (aguardandoSegundo) return;
+            if (displayValue.length > 1) {
+                displayValue = displayValue.slice(0, -1);
+            } else {
+                displayValue = '0';
+            }
+            UpdateDisplay();
+        }
+
+        function Calcular() {
+            if (Operador === null || value1 === null) return;
+            const Segundo = parseFloat(displayValue);
+            let Resultado;
+
+            switch (Operador) {
+                case '+':
+                    Resultado = value1 + Segundo;
+                    break;
+                case '-':
+                    Resultado = value1 - Segundo;
+                    break;
+                case 'x':
+                    Resultado = value1 * Segundo;
+                    break;
+                case '/':
+                    if (Segundo === 0) {
+                        alert('Erro: Divisão por zero!');
+                        Limpar();
+                        return;
+                    }
+                    Resultado = value1 / Segundo;
+                    break;
+                default:
+                    return;
+            }
+
+            parseFloat(Resultado.toFixed(8));
+
+            displayValue = Resultado.toString();
+            value1 = Resultado;
+            Operador = null;
+            aguardandoSegundo = true;
+            UpdateDisplay();
+        }
+
+        function SetOperador(op) {
+            if (Operador !== null && !aguardandoSegundo) {
+                calcular();
+            }
+            value1 = parseFloat(displayValue);
+            Operador = op;
+            aguardandoSegundo = true;
+        }
+
+        function Sendnumber(x) {
+            console.log("Botão pressionado:", x);
+
+            // Verifica se é número (0-9)
+            if (x >= '0' && x <= '9') {
+                AdicionarNumero(x);
+            }
+            // Verifica se é vírgula/ponto decimal
+            else if (x === ',' || x === '.') {
+                AdicionarDecimal();
+            }
+            // Verifica se é operador
+            else if (x === '+' || x === '-' || x === 'x' || x === '/') {
+                SetOperador(x);
+            }
+            // Verifica se é igual
+            else if (x === '=') {
+                Calcular();
+            }
+            // Verifica se é limpar (C)
+            else if (x === 'C') {
+                Limpar();
+            }
+            // Verifica se é limpar entrada (CE - também usa LimparTudo)
+            else if (x === 'CE') {
+                Limpar();
+            }
+            // Verifica se é para apagar último caractere
+            else if (x === '⌫') {
+                Apagar();
+            }
+        }
+        // Inicializar display
+        UpdateDisplay();
     </script>
 </body>
 
